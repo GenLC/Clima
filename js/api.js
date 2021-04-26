@@ -2,7 +2,7 @@ var ciudad = 'Japan'
 const fetcClima = async (x) => {
     try {
         console.log(ciudad)
-        const res = await fetch('  http://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd')
+        const res = await fetch('https://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd')
 
         const data = await res.json();
 
