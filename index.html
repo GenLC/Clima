@@ -12,6 +12,7 @@
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="icon" type="image/png" href="img/Clear.png" />
 	<script src="https://genlc.github.io/Clima/js/api.js"></script>
+	<!-- <script src="js/api.js"></script> -->
 	<style>
 		.borde {
 			border-style: solid;
@@ -21,18 +22,31 @@
 
 		.fondoIzq {
 			background-image: url("img/Cloud-background.png");
-			background-color: white;
-			
+			background-size: 25rem 18rem;
+			background-repeat: no-repeat;
+			display: block;
+  position: relative;
+
 		}
+		
+
 		.trans {
-			
+
 			opacity: 0.5;
+		}
+
+		.azulOscuro {
+			background-color: rgb(16, 14, 29);
+		}
+		.azulClaro {
+			background-color: rgb(51, 56, 95);
+			color:white;
 		}
 	</style>
 
 </head>
 
-<body class="bg-info">
+<body class="azulOscuro">
 	<div id="wrap" class=" mx-5">
 		<header>
 
@@ -46,51 +60,57 @@
 		<div class="flex">
 
 		</div>
-		<template id="template-clima">
+		<template id="template-clima" >
+
+			<center>
 
 
-			<div class="row ">
-				<!-- PANEL IZQUIERDO -->
-				<div class="col-sm-12 col-md-4 borde bg-dark rounded ">
-					<!-- BUSCADOR -->
-					<div class="row d-flex justify-content-around mt-4 mb-5 mx-3">
-						<div class="input-group mb-3">
-							<input type="text" class="form-control bg-dark text-white mr-1 rounded">
-							<div class="input-group-prepend ">
-								<button type="button" class=" btn btn-secondary rounded">Buscar</button>
+				<div class="row mt-4 ml-4 ">
+					<!-- PANEL IZQUIERDO -->
+					<div class="col-sm-12 col-md-4 borde azulOscuro rounded  ">
+						<div class=" ">
+						<!-- BUSCADOR -->
+						<div class="row d-flex justify-content-around mt-4 mb-1 mx-3">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control bg-dark text-white mr-1 rounded azulClaro"
+									id="inputCiudad">
+								<div class="input-group-prepend ">
+									<button type="button" class=" btn btn-secondary rounded azulClaro"
+										onclick="BuscarCiudad()">Buscar</button>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- ICONO -->
+						<div class="row d-flex justify-content-center   align-items-center">
+							<img src="img/Shower.png" id="imagen" class="rounded mx-auto d-block w-50 h-50" alt="...">
+						</div>
+						<!-- TEMPERATURA -->
+						<div class="row  d-flex justify-content-center   align-items-center ">
+							<div class="col-6 d-flex justify-content-center align-items-center ml-3">
+								<p class="font-weight-light display-1 text-white" id="TEMP"></p>
+								<p class="font-weight-light h1 text-white">°C</p>
+							</div>
+							<div class="col-6 ">
+								<div class=" d-flex justify-content-center">
+									<p class="font-weight-light h3 text-white">Máx: </p>
+									<p class="font-weight-light h3 text-white" id="TEMPMAX"></p>
+								</div>
+								<div class="d-flex justify-content-center">
+									<p class="font-weight-light h3 text-white">Min: </p>
+									<p class="font-weight-light h3 text-white" id="TEMPMIN"></p>
+								</div>
 							</div>
 						</div>
-
-
-					</div>
-					<!-- ICONO -->
-					<div class="row d-flex justify-content-center  my-5  align-items-center">
-						<img src="img/Shower.png" id="imagen" class="rounded mx-auto d-block w-50 h-50" alt="...">
-					</div>
-					<!-- TEMPERATURA -->
-					<div class="row  d-flex justify-content-center my-5  align-items-center">
-						<p class="font-weight-light display-1 text-white" id="TEMP"></p>
-						<p class="font-weight-light h1 text-white">°C</p>
-						<div class="row">
-
-							<p class="font-weight-light h3 text-white">Máx: </p>
-							<p class="font-weight-light h3 text-white" id="TEMPMAX"></p>
-							<p class="font-weight-light h3 text-white">Min: </p>
-							<p class="font-weight-light h3 text-white" id="TEMPMIN"></p>
-
-						</div>
-						<div class="row"></div>
-					</div>
-					<!-- UBICACIÓN Y FECHA -->
-					<div class="row-12 ">
 						<!-- FECHA -->
-						<div class="row  d-flex justify-content-center mt-5  align-items-center">
-							<p class="font-weight-light h3 text-white mr-3">Today </p>
-							<p class="font-weight-light h3 text-white">Fri 5 Jun </p>
+						<div class="row  d-flex justify-content-center mt-1  align-items-center ">
+							<p class="font-weight-light h3 text-white mr-3">Hoy: </p>
+							<p class="font-weight-light h3 text-white" id="FECHA"> </p>
 						</div>
 						<!-- UBICACION -->
-						<div class="row  mb-5 justify-content-center  align-items-centermx-2">
-							<div class="row ">
+						<div class="row  mb-5 justify-content-center  align-items-center mt-2 ">
+							<div class="row borde azulClaro">
 								<div class="col-3 d-flex justify-content-end align-items-center  ">
 									<i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
 								</div>
@@ -101,65 +121,115 @@
 
 						</div>
 					</div>
+					</div>
 
-				</div>
-				<!-- PANEL DERECHO -->
-				<div class="col-sm-12 col-md-9 borde bg-dark rounded"></div>
-			</div>
+					<!-- PANEL DERECHO -->
+					<div class="col-sm-12 col-md-7 borde  rounded ml-4 ">
+						<div class="row mt5 mb-5 ">
 
-		</template>
-
-
-
-
-		<template id="template-card">
-			<div class="container-fluid " id="templateID">
-
-				<ul id="templateID" class="list clearfix  bg-light ">
-					<!-- row 1 -->
-					<h1 class="font-weight-bold text-gray-900" id="TEMP"></h1>
-
-					<li class="clearfix alert-primary card  border-bottom-info  shadow bg-gradient-light">
-						<div class="row  d-flex justify-content-between align-items-center">
-
-							<section class="col-4">
-								<!-- <img src="images/new-product-banner.png" class="imgRetrado" alt="new product" class="featured-banner">
-						<img src="images/products/list-default-thumb.png" alt="default thumb" class="thumb"> -->
-								<h1 class="font-weight-bold alert-info border border-success  rounded "
-									id="NombreEquipo"> 0</h1>
-
-							</section>
-
-							<section class="col-2 d-flex justify-content-center  mr-2">
-								<row>
-									<span class="font-weight-lighter h3" id="pendientestext">PENDIENTES</span>
-									<h1 class="font-weight-bold text-gray-900" id="PENDIENTES">0</h1>
-									<span class="darkview">
-									</span>
-								</row>
-
-
-							</section>
-							<section class="col-2 d-flex justify-content-center  mr-2">
-								<row>
-									<span class="font-weight-lighter h3">ENTREGADOS</span>
-									</p>
-									<h1 class="font-weight-bold text-gray-900" id="ENTREGADOS">0</h1>
-
-									<span class="darkview">
-									</span>
-								</row>
-							</section>
 						</div>
-					</li>
+						<div class="row p-3">
+							<div class="col d-flex  justify-content-center  align-items-center my-2 ">
+								<div class="card azulClaro" style="width: 13rem; ">
+									<img src="..." class="card-img-top" alt="Viento">
+									<div class="card-body">
+										<p class="card-text" id="KM"></p>
+									</div>
+								</div>
 
-				</ul>
-			</div>
-		</template>
 
-		<footer>
-			&nbsp;
-		</footer>
+							</div>
+							<div class="col d-flex  justify-content-center  align-items-center my-2">
+								<div class="card azulClaro" style="width: 13rem;">
+									<img src="..." class="card-img-top" alt="Humedad">
+									<div class="card-body">
+										<p class="card-text text-white"id="HUMEDAD"></p>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="col d-flex  justify-content-center  align-items-center my-2">
+								<div class="card azulClaro" style="width: 13rem;">
+									<img src="..." class="card-img-top" alt="Visibilidad">
+									<div class="card-body">
+										<p class="card-text" id="VISIBILIDAD"></p>
+									</div>
+								</div>
+
+
+							</div>
+							<div class="col d-flex  justify-content-center  align-items-center my-2">
+								<div class="card azulClaro" style="width: 13rem;">
+									<img src="..." class="card-img-top" alt="Presión ">
+									<div class="card-body">
+										<p class="card-text"id="PRESION">998 MB</p>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+
+					</div>
+			</center>
+	</div>
+	</div>
+
+	</template>
+
+
+
+
+	<template id="template-card">
+		<div class="container-fluid " id="templateID">
+
+			<ul id="templateID" class="list clearfix  bg-light ">
+				<!-- row 1 -->
+				<h1 class="font-weight-bold text-gray-900" id="TEMP"></h1>
+
+				<li class="clearfix alert-primary card  border-bottom-info  shadow bg-gradient-light">
+					<div class="row  d-flex justify-content-between align-items-center">
+
+						<section class="col-4">
+							<!-- <img src="images/new-product-banner.png" class="imgRetrado" alt="new product" class="featured-banner">
+						<img src="images/products/list-default-thumb.png" alt="default thumb" class="thumb"> -->
+							<h1 class="font-weight-bold alert-info border border-success  rounded " id="NombreEquipo"> 0
+							</h1>
+
+						</section>
+
+						<section class="col-2 d-flex justify-content-center  mr-2">
+							<row>
+								<span class="font-weight-lighter h3" id="pendientestext">PENDIENTES</span>
+								<h1 class="font-weight-bold text-gray-900" id="PENDIENTES">0</h1>
+								<span class="darkview">
+								</span>
+							</row>
+
+
+						</section>
+						<section class="col-2 d-flex justify-content-center  mr-2">
+							<row>
+								<span class="font-weight-lighter h3">ENTREGADOS</span>
+								</p>
+								<h1 class="font-weight-bold text-gray-900" id="ENTREGADOS">0</h1>
+
+								<span class="darkview">
+								</span>
+							</row>
+						</section>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+	</template>
+
+	<footer>
+		&nbsp;
+	</footer>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

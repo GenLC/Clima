@@ -1,10 +1,10 @@
-var ciudad = 'Japan'
-const fetcClima = async (x) => {
+
+const fetcClima = async (ciudad) => {
     try {
-        console.log(ciudad)
-        var link='https://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd';
+
+        var link = 'https://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd';
         const res = await fetch(link)
-      
+
         const data = await res.json();
 
         LLenar(data);
@@ -14,8 +14,8 @@ const fetcClima = async (x) => {
     }
 
 }
-
-fetcClima();
+var ciudad = 'Buenos Aires'
+fetcClima(ciudad);
 
 const LLenar = data => {
 
@@ -24,23 +24,29 @@ const LLenar = data => {
 
     const template = document.getElementById("template-clima").content;
 
-
     const fragment = document.createDocumentFragment();
 
 
-     template.getElementById("TEMP").textContent = data.main.temp;
-     template.getElementById("TEMPMAX").textContent = data.main.temp_max
-     template.getElementById("TEMPMIN").textContent = data.main.temp_min;
-    template.getElementById("UBIC").textContent = data.name+" "+data.sys.country;
+    template.getElementById("TEMP").textContent = data.main.temp;
+    template.getElementById("TEMPMAX").textContent = data.main.temp_max
+    template.getElementById("TEMPMIN").textContent = data.main.temp_min;
+    template.getElementById("UBIC").textContent = data.name + " " + data.sys.country;
+    var date = getdate();
+    template.getElementById("FECHA").textContent = getdate();
+    template.getElementById("KM").textContent = data.wind.speed;
+    template.getElementById("HUMEDAD").textContent = data.main.humidity;
+    template.getElementById("VISIBILIDAD").textContent = data.visibility;
+    template.getElementById("PRESION").textContent = data.main.pressure;
 
-  template.getElementById('imagen').setAttribute("src", "img/" + data.weather[0].icon + ".png");
-  //  template.getElementById('imagen').setAttribute("src", "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
-    
+    template.getElementById('imagen').setAttribute("src", "img/" + data.weather[0].icon + ".png");
+    //  template.getElementById('imagen').setAttribute("src", "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+
     console.log(data.weather[0].icon)
     console.log(data.weather[0].main)
-    // console.log(data.weather[0])
+    console.log(data.main.temp_max)
+    console.log(data.main.temp_min)
 
-    // console.log(data.weather[0].id)
+   
 
 
     const clone = template.cloneNode(true);
@@ -67,11 +73,23 @@ const LLenar = data => {
 
 }
 
-function temperatureConverter(valNum) {
-    valNum = parseFloat(valNum);
+function getdate() {
 
-    var res = Math.round((valNum - 32) * 5 / 9);
-    return res
+    var today = new Date().toLocaleDateString(undefined, {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        weekday: 'long'
+    });
+
+    return today;
+}
+
+function BuscarCiudad(){
+ 
+    var x = document.getElementById("inputCiudad").value; 
+    console.log(x)
+
 }
 
 
