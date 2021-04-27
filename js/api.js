@@ -1,4 +1,3 @@
-
 const fetcClima = async (ciudad) => {
     try {
 
@@ -7,7 +6,19 @@ const fetcClima = async (ciudad) => {
 
         const data = await res.json();
 
-        LLenar(data);
+        var alert = document.getElementById("ALERT");
+
+        if (data.cod == 200) {
+            console.log(data.cod)
+            alert.classList.add("d-none");
+            LLenar(data);
+        } else {
+            console.log(data.cod)
+            alert.classList.remove("d-none");
+        }
+
+       
+
 
     } catch (error) {
         console.log(error)
@@ -18,40 +29,8 @@ var ciudad = 'Buenos Aires'
 fetcClima(ciudad);
 
 const LLenar = data => {
-    // const flex = document.querySelector(".flex");
-
-    // const template = document.getElementById("template-clima").content;
-
-    // const fragment = document.createDocumentFragment();
 
 
-    // template.getElementById("TEMP").textContent = data.main.temp;
-    // template.getElementById("TEMPMAX").textContent = data.main.temp_max
-    // template.getElementById("TEMPMIN").textContent = data.main.temp_min;
-    // template.getElementById("UBIC").textContent = data.name + " " + data.sys.country;
-    // var date = getdate();
-    // template.getElementById("FECHA").textContent = getdate();
-    // template.getElementById("KM").textContent = data.wind.speed;
-    // template.getElementById("HUMEDAD").textContent = data.main.humidity;
-    // template.getElementById("VISIBILIDAD").textContent = data.visibility;
-    // template.getElementById("PRESION").textContent = data.main.pressure;
-
-    // template.getElementById('imagen').setAttribute("src", "img/" + data.weather[0].icon + ".png");
-    // //  template.getElementById('imagen').setAttribute("src", "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
-
-    // console.log(data.weather[0].icon)
-    // console.log(data.weather[0].main)
-    // console.log(data.main.temp_max)
-    // console.log(data.main.temp_min)
-
-   
-
-
-    // const clone = template.cloneNode(true);
-    // fragment.appendChild(clone);
-    // flex.appendChild(fragment);
-
-    
     document.getElementById("TEMP").textContent = data.main.temp;
     document.getElementById("TEMPMAX").textContent = data.main.temp_max
     document.getElementById("TEMPMIN").textContent = data.main.temp_min;
@@ -65,6 +44,7 @@ const LLenar = data => {
 
     document.getElementById('imagen').setAttribute("src", "img/" + data.weather[0].icon + ".png");
     //  template.getElementById('imagen').setAttribute("src", "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
+
 
 }
 
@@ -80,40 +60,36 @@ function getdate() {
     return today;
 }
 
-function BuscarCiudad(){
- 
-    var entrada = document.getElementById("inputCiudad").value;  
+function BuscarCiudad() {
 
-    var alerttext = document.getElementById("TEXTALERT").textContent; 
+    var entrada = document.getElementById("inputCiudad").value;
+
+    var alerttext = document.getElementById("TEXTALERT").textContent;
 
     var alert = document.getElementById("ALERT");
-   
 
-    if((document.getElementById("inputCiudad").value.length == 0)){
+
+    if ((document.getElementById("inputCiudad").value.length == 0)) {
         console.log("vacio")
         alert.classList.remove("d-none");
 
-    }else{
-        alert.classList.add("d-none");
-        console.log(entrada)
-         LimiarDatos();
-         fetcClima(entrada);
-        
+    } else {
+        fetcClima(entrada)
     }
 
 }
 
-function LimiarDatos(){    
-    
-    document.getElementById("TEMP").textContent="";
-    document.getElementById("TEMPMAX").textContent="";
-    document.getElementById("TEMPMIN").textContent="";
-    document.getElementById("UBIC").textContent="";  
-    document.getElementById("FECHA").textContent="";
-    document.getElementById("KM").textContent="";
-    document.getElementById("HUMEDAD").textContent="";
-    document.getElementById("VISIBILIDAD").textContent="";
-    document.getElementById("PRESION").textContent="";
+function LimiarDatos() {
+
+    document.getElementById("TEMP").textContent = "";
+    document.getElementById("TEMPMAX").textContent = "";
+    document.getElementById("TEMPMIN").textContent = "";
+    document.getElementById("UBIC").textContent = "";
+    document.getElementById("FECHA").textContent = "";
+    document.getElementById("KM").textContent = "";
+    document.getElementById("HUMEDAD").textContent = "";
+    document.getElementById("VISIBILIDAD").textContent = "";
+    document.getElementById("PRESION").textContent = "";
 }
 
 
