@@ -1,15 +1,20 @@
 const fetcClima = async (ciudad) => {
     try {
 
-        var link = 'https://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd';
+        //datos por horas
+        var link = 'https://api.openweathermap.org/data/2.5/forecast?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd';
+
+        //Solo por datos por 1 dia
+        var link2 = 'https://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&units=metric&appid=842edb09e4dd681ac0e703858836d5cd';
         const res = await fetch(link)
 
         const data = await res.json();
 
+        //console.log(data.list[0].main.temp);
+
         var alert = document.getElementById("ALERT");
 
         if (data.cod == 200) {
-            console.log(data.cod)
             alert.classList.add("d-none");
             LLenar(data);
         } else {
@@ -17,7 +22,7 @@ const fetcClima = async (ciudad) => {
             alert.classList.remove("d-none");
         }
 
-       
+
 
 
     } catch (error) {
@@ -31,20 +36,24 @@ fetcClima(ciudad);
 const LLenar = data => {
 
 
-    document.getElementById("TEMP").textContent = data.main.temp;
-    document.getElementById("TEMPMAX").textContent = data.main.temp_max
-    document.getElementById("TEMPMIN").textContent = data.main.temp_min;
-    document.getElementById("UBIC").textContent = data.name + " " + data.sys.country;
+    document.getElementById("TEMP").textContent = data.list[0].main.temp;
+    document.getElementById("DESC").textContent = data.list[0].weather[0].description.toUpperCase();
+    document.getElementById("TEMPMAX").textContent = data.list[0].main.temp_max;
+    document.getElementById("TEMPMIN").textContent = data.list[0].main.temp_min;
+    document.getElementById("UBIC").textContent = data.city.name + " " + data.city.country;
     var date = getdate();
     document.getElementById("FECHA").textContent = getdate();
-    document.getElementById("KM").textContent = data.wind.speed;
-    document.getElementById("HUMEDAD").textContent = data.main.humidity;
-    document.getElementById("VISIBILIDAD").textContent = data.visibility;
-    document.getElementById("PRESION").textContent = data.main.pressure;
+    document.getElementById("KM").textContent = data.list[0].wind.speed;
+    document.getElementById("HUMEDAD").textContent = data.list[0].main.humidity + "%";
+    document.getElementById("BARRAHUMEDAD").style.width = data.list[0].main.humidity + "%";
+    document.getElementById("VISIBILIDAD").textContent = data.list[0].visibility;
+    document.getElementById("PRESION").textContent = data.list[0].main.pressure;
 
-    document.getElementById('imagen').setAttribute("src", "img/" + data.weather[0].icon + ".png");
-    //  template.getElementById('imagen').setAttribute("src", "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png");
 
+    document.getElementById('imagen').setAttribute("src", "img/" + data.list[0].weather[0].icon + ".png");
+
+    ClimaDiasPosteriores(data.list)
+    
 
 }
 
@@ -54,7 +63,7 @@ function getdate() {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
-        weekday: 'long'
+        weekday: 'short'
     });
 
     return today;
@@ -74,6 +83,7 @@ function BuscarCiudad() {
         alert.classList.remove("d-none");
 
     } else {
+        LimiarDatos()
         fetcClima(entrada)
     }
 
@@ -90,42 +100,45 @@ function LimiarDatos() {
     document.getElementById("HUMEDAD").textContent = "";
     document.getElementById("VISIBILIDAD").textContent = "";
     document.getElementById("PRESION").textContent = "";
+    document.getElementById('BARRAHUMEDAD').setAttribute("width", 0);
 }
 
 
+const ClimaDiasPosteriores = data => {
 
-function Limpiar(cant) {
+    const row = document.getElementById("rowContenedor");
+    const template = document.getElementById("tempalteCard").content;
+    const fragment = document.createDocumentFragment();
 
-    console.log("cant a limpiar: " + cant)
 
-    for (var i = 0; i <= cant + cant; i++) {
+    //console.log(data[0].weather[0].icon)
+    for (var i = 0; i < data.length; i = i + 1) {
+        // console.log(data[i].main.temp)
+        template.getElementById("DIADIARIO").textContent =data[i].dt_txt;
+        template.getElementById("MAXDIARIO").textContent = data[i].main.temp_max;
+        template.getElementById("MINDIARIO").textContent = data[i].main.temp_min;
+        template.getElementById('IMAGENDIARIO').setAttribute("src", "img/" + data[i].weather[0].icon + ".png");
 
-        var templateLimpiar = document.querySelectorAll('[id=templateID]');
-        try {
-            templateLimpiar[i].remove()
-        } catch {
-            // console.log("no existe template en la posicion: "+i)
-        }
+        const clone = template.cloneNode(true);
+        fragment.appendChild(clone);
 
     }
 
-
-
+    row.appendChild(fragment);
 }
 
+function ParseTimeStamp(timestamp) {
+    let unix_timestamp = timestamp
 
-// var x = 0
-// setInterval(function () {
-//     console.log(x)
-//     if (x == 1) {
+    var date = new Date(unix_timestamp * 1000);
 
-//         fetcClima(x)
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var days = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var formattedTime = days + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
-//     } else if (x == 5) {
-
-//         fetcClima(x)
-//         x = 0;
-//         console.clear();
-//     }
-//     x = x + 1
-// }, 1000);
+    return formattedTime
+}

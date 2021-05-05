@@ -10,7 +10,7 @@
 		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="icon" type="image/png" href="img/Clear.png" />
+
 	<!-- <script src="https://genlc.github.io/Clima/js/api.js"></script> -->
 	<script src="js/api.js"></script>
 	<style>
@@ -48,135 +48,164 @@
 </head>
 
 <body class="azulOscuro mx-5">
-	
-		<header>
 
-			<!-- <h1 class="alert alert-success  border-left-info shadow border">Clima</h1> -->
+	<header>
 
-		</header>
+		<!-- <h1 class="alert alert-success  border-left-info shadow border">Clima</h1> -->
 
-
+	</header>
 
 
-		<div class="flex">
-			<center>
 
 
-				<div class="row mt-4 ">
-					<!-- PANEL IZQUIERDO -->
-					<div class="col-sm-12 col-md-4 borde azulOscuro rounded   ">
-						<div class=" ">
-							<!-- BUSCADOR -->
-							<div class="row d-flex justify-content-around mt-4 mb-1 mx-3">
-								<div class="input-group mb-3">
-									<input type="text" class="form-control bg-dark text-white mr-1  rounded azulClaro" id="inputCiudad">
-										
-									<div class="input-group-prepend ">
-										<button type="button" class=" btn btn-secondary rounded azulClaro"
-											onclick="BuscarCiudad()">Buscar</button>
-									</div>
-									<div class="alert alert-warning mt-2 w-100 d-none" id="ALERT" role="alert">
-										<strong id="TEXTALERT">Ciudad no encontrada</strong> 
-									  </div>
+	<div class="flex">
+		<center>
+			<div class="row mt-4 ">
+				<!-- PANEL IZQUIERDO -->
+				<div class="col-sm-12 col-md-4 borde azulOscuro rounded   ">
+					<div class=" ">
+						<!-- BUSCADOR -->
+						<div class="row d-flex justify-content-around mt-4 mb-1 mx-3">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control bg-dark text-white mr-1  rounded azulClaro"
+									id="inputCiudad">
+
+								<div class="input-group-prepend ">
+									<button type="button" class=" btn btn-secondary rounded azulClaro"
+										onclick="BuscarCiudad()">Buscar</button>
 								</div>
-
-
-							</div>
-							<!-- ICONO -->
-							<div class="row d-flex justify-content-center   align-items-center">
-								<img src="img/Shower.png" id="imagen" class="rounded mx-auto d-block w-50 h-50"
-									alt="...">
-							</div>
-							<!-- TEMPERATURA -->
-							<div class="row  d-flex justify-content-center   align-items-center ">
-								<div class="col-6 d-flex justify-content-center align-items-center ml-3">
-									<p class="font-weight-light display-1 text-white" id="TEMP"></p>
-									<p class="font-weight-light h1 text-white">°C</p>
-								</div>
-								<div class="col-6 ">
-									<div class=" d-flex justify-content-center">
-										<p class="font-weight-light h3 text-white">Máx: </p>
-										<p class="font-weight-light h3 text-white" id="TEMPMAX"></p>
-									</div>
-									<div class="d-flex justify-content-center">
-										<p class="font-weight-light h3 text-white">Min: </p>
-										<p class="font-weight-light h3 text-white" id="TEMPMIN"></p>
-									</div>
+								<div class="alert alert-warning mt-2 w-100 d-none" id="ALERT" role="alert">
+									<strong id="TEXTALERT">Ciudad no encontrada</strong>
 								</div>
 							</div>
-							<!-- FECHA -->
-							<div class="row  d-flex justify-content-center mt-1  align-items-center ">
-								<p class="font-weight-light h3 text-white mr-3">Hoy: </p>
-								<p class="font-weight-light h3 text-white" id="FECHA"> </p>
-							</div>
-							<!-- UBICACION -->
-							<div class="row  mb-5 justify-content-center  align-items-center mt-2 ">
-								<div class="row borde azulClaro">
-									<div class="col-3 d-flex justify-content-end align-items-center  ">
-										<i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
-									</div>
-									<div class="col-9 d-flex  justify-content-start  align-items-center  mt-1">
-										<p class="font-weight-light h5 text-white" id="UBIC"></p>
-									</div>
-								</div>
 
+
+						</div>
+						<!-- ICONO -->
+						<div class="row d-flex justify-content-center   align-items-center">
+							<img src="" id="imagen" class="rounded mx-auto d-block w-50 h-50" alt="...">
+						</div>
+						<!-- TEMPERATURA -->
+						<div class="row  d-flex justify-content-center   align-items-center ">
+							<div class="col-6 d-flex justify-content-center align-items-center ml-3">
+								<p class="font-weight-light h1 mt-2 text-white" id="DESC"></p>
+
+							</div>
+
+							<div class="col-6 d-flex justify-content-center align-items-center ml-3">
+								<p class="font-weight-light display-1 text-white" id="TEMP"></p>
+								<p class="font-weight-light h1 text-white">°C</p>
+							</div>
+							<div class="col-6 ">
+								<div class=" d-flex justify-content-center">
+									<p class="font-weight-light h3 text-white">Máx: </p>
+									<p class="font-weight-light h3 text-white" id="TEMPMAX"></p>
+								</div>
+								<div class="d-flex justify-content-center">
+									<p class="font-weight-light h3 text-white">Min: </p>
+									<p class="font-weight-light h3 text-white" id="TEMPMIN"></p>
+								</div>
 							</div>
 						</div>
-					</div>
-					
+						<!-- FECHA -->
+						<div class="row  d-flex justify-content-center mt-1  align-items-center ">
+							<p class="font-weight-light h3 text-white mr-3">Hoy: </p>
+							<p class="font-weight-light h3 text-white" id="FECHA"> </p>
+						</div>
+						<!-- UBICACION -->
+						<div class="row  mb-5 justify-content-center  align-items-center mt-2 ">
+							<div class="row borde azulClaro">
+								<div class="col-3 d-flex justify-content-end align-items-center  ">
+									<i class="fas fa-map-marker-alt fa-stack-1x fa-inverse"></i>
+								</div>
+								<div class="col-9 d-flex  justify-content-start  align-items-center  mt-1">
+									<p class="font-weight-light h5 text-white" id="UBIC"></p>
+								</div>
+							</div>
 
-					<!-- PANEL DERECHO -->
-					<div class="col-sm-12 col-md-7 borde  rounded mt-md-0  ml-md-2 ml-xl-2  ">
+						</div>
+					</div>
+				</div>
+
+
+				<!-- PANEL DERECHO -->
+				<div class="col-sm-12 col-md-7 borde  rounded mt-md-0  ml-md-2 ml-xl-2  ">
+					<!-- CLIMA DIARIO -->
+					<div class="row mt-3  d-flex justify-content-center" id="rowContenedor">
 						
-						<div class="row p-3">
-							<div class="col d-flex  justify-content-center  align-items-center my-2 ">
-								<div class="card azulClaro" style="width: 13rem; ">
-									<img src="..." class="card-img-top" alt="Viento">
-									<div class="card-body">
-										<p class="card-text" id="KM"></p>
+					</div>
+					<!-- DATOS DEL DIA -->
+					<div class="row p-3">
+						<div class="col d-flex  justify-content-center  align-items-center my-2 ">
+							<div class="card azulClaro" style="width: 13rem; ">
+								<img src="..." class="card-img-top" alt="Viento">
+								<div class="card-body">
+									<p class="card-text" id="KM"></p>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="col d-flex  justify-content-center  align-items-center my-2">
+							<div class="card azulClaro" style="width: 13rem;">
+								<img src="..." class="card-img-top" alt="Humedad">
+								<div class="card-body">
+									<p class="card-text text-white" id="HUMEDAD"></p>
+
+									<div class="progress">
+										<div class="progress-bar progress-bar-striped progress-bar-animated"
+											id="BARRAHUMEDAD" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+											aria-valuemax="100" style="width: 0%"></div>
 									</div>
 								</div>
-
-
 							</div>
-							<div class="col d-flex  justify-content-center  align-items-center my-2">
-								<div class="card azulClaro" style="width: 13rem;">
-									<img src="..." class="card-img-top" alt="Humedad">
-									<div class="card-body">
-										<p class="card-text text-white" id="HUMEDAD"></p>
-									</div>
+
+
+						</div>
+						<div class="col d-flex  justify-content-center  align-items-center my-2">
+							<div class="card azulClaro" style="width: 13rem;">
+								<img src="..." class="card-img-top" alt="Visibilidad">
+								<div class="card-body">
+									<p class="card-text" id="VISIBILIDAD"></p>
 								</div>
-
-
 							</div>
-							<div class="col d-flex  justify-content-center  align-items-center my-2">
-								<div class="card azulClaro" style="width: 13rem;">
-									<img src="..." class="card-img-top" alt="Visibilidad">
-									<div class="card-body">
-										<p class="card-text" id="VISIBILIDAD"></p>
-									</div>
+
+
+						</div>
+						<div class="col d-flex  justify-content-center  align-items-center my-2">
+							<div class="card azulClaro" style="width: 13rem;">
+								<img src="..." class="card-img-top" alt="Presión ">
+								<div class="card-body">
+									<p class="card-text" id="PRESION"></p>
 								</div>
-
-
 							</div>
-							<div class="col d-flex  justify-content-center  align-items-center my-2">
-								<div class="card azulClaro" style="width: 13rem;">
-									<img src="..." class="card-img-top" alt="Presión ">
-									<div class="card-body">
-										<p class="card-text" id="PRESION">998 MB</p>
-									</div>
-								</div>
 
-
-							</div>
 
 						</div>
 
 					</div>
-			</center>
+
+				</div>
+		</center>
+	</div>
+
+	<!-- TEMPLATE CLIMA DIARIO -->
+	<template id="tempalteCard">
+		<div class="card my-0 azulClaro borde"  style="width: 10rem;">
+
+			<div class="card-body">
+				<h4 class="card-title font-weight-bolder small "id="DIADIARIO">Tomorrow</h4>
+
+				<img src="" id="IMAGENDIARIO" class="card-img-top " style="width: 3rem; height: 3rem;">
+
+				<div class="row-12  d-flex justify-content-between">
+					<p class="bolder h5 text-white" id="MAXDIARIO"></p>
+					<p class="font-weight-light h5 text-white-50 "id="MINDIARIO" ></p>
+
+				</div>
+			</div>
 		</div>
-			
-	
+		</template>
 	</div>
 
 	</template>
@@ -185,7 +214,7 @@
 		&nbsp;
 	</footer>
 	</div>
-	
+
 </body>
 
 </html>
