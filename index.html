@@ -11,8 +11,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-	<script src="https://genlc.github.io/Clima/js/api.js"></script>
-	<!-- <script src="js/api.js"></script> -->
+	<!-- <script src="https://genlc.github.io/Clima/js/api.js"></script> -->
+	<script src="js/api.js"></script>
 	<style>
 		.borde {
 			border-style: solid;
@@ -130,10 +130,7 @@
 
 				<!-- PANEL DERECHO -->
 				<div class="col-sm-12 col-md-7 borde  rounded mt-md-0  ml-md-2 ml-xl-2  ">
-					<!-- CLIMA DIARIO -->
-					<div class="row mt-3  d-flex justify-content-center" id="rowContenedor">
-						
-					</div>
+
 					<!-- DATOS DEL DIA -->
 					<div class="row p-3">
 						<div class="col d-flex  justify-content-center  align-items-center my-2 ">
@@ -184,6 +181,10 @@
 						</div>
 
 					</div>
+					<!-- CLIMA DIARIO -->
+					<div class="row mt-3  d-flex justify-content-center" id="rowContenedor">
+					</div>
+
 
 				</div>
 		</center>
@@ -191,21 +192,21 @@
 
 	<!-- TEMPLATE CLIMA DIARIO -->
 	<template id="tempalteCard">
-		<div class="card my-0 azulClaro borde"  style="width: 10rem;">
+		<div class="card my-1 mx-1 azulClaro borde" style="width: 10rem;">
 
 			<div class="card-body">
-				<h4 class="card-title font-weight-bolder small "id="DIADIARIO"></h4>
-
+				<h4 class="card-title font-weight-bolder small " id="DIADIARIO"></h4>
+				<h4 class="card-title font-weight-bolder small " id="HORADIARIO"></h4>
 				<img src="" id="IMAGENDIARIO" class="card-img-top " style="width: 3rem; height: 3rem;">
 
 				<div class="row-12  d-flex justify-content-between">
 					<p class="bolder h5 text-white" id="MAXDIARIO"></p>
-					<p class="font-weight-light h5 text-white-50 "id="MINDIARIO" ></p>
+					<p class="font-weight-light h5 text-white-50 " id="MINDIARIO"></p>
 
 				</div>
 			</div>
 		</div>
-		</template>
+	</template>
 	</div>
 
 	</template>

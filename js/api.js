@@ -21,10 +21,6 @@ const fetcClima = async (ciudad) => {
             console.log(data.cod)
             alert.classList.remove("d-none");
         }
-
-
-
-
     } catch (error) {
         console.log(error)
     }
@@ -40,9 +36,8 @@ const LLenar = data => {
     document.getElementById("DESC").textContent = data.list[0].weather[0].description.toUpperCase();
     document.getElementById("TEMPMAX").textContent = data.list[0].main.temp_max;
     document.getElementById("TEMPMIN").textContent = data.list[0].main.temp_min;
-    document.getElementById("UBIC").textContent = data.city.name + " " + data.city.country;
-    var date = getdate();
-    document.getElementById("FECHA").textContent = getdate();
+    document.getElementById("UBIC").textContent = data.city.name + " " + data.city.country;   
+    document.getElementById("FECHA").textContent = getTodayDate();
     document.getElementById("KM").textContent = data.list[0].wind.speed;
     document.getElementById("HUMEDAD").textContent = data.list[0].main.humidity + "%";
     document.getElementById("BARRAHUMEDAD").style.width = data.list[0].main.humidity + "%";
@@ -57,7 +52,7 @@ const LLenar = data => {
 
 }
 
-function getdate() {
+function getTodayDate() {
 
     var today = new Date().toLocaleDateString(undefined, {
         day: '2-digit',
@@ -89,6 +84,35 @@ function BuscarCiudad() {
 
 }
 
+const ClimaDiasPosteriores = data => {
+
+    const row = document.getElementById("rowContenedor");
+    const template = document.getElementById("tempalteCard").content;
+    const fragment = document.createDocumentFragment();
+
+
+    //console.log(data[0].dt)
+    for (var i = 0; i < data.length; i = i + 3) {
+        // console.log(data[i].main.temp)
+        template.getElementById("DIADIARIO").textContent =getDateTimeStamp(data[i].dt);
+
+        template.getElementById("HORADIARIO").textContent =getHoursTimeStamp(data[i].dt);
+        
+        template.getElementById("MAXDIARIO").textContent = data[i].main.temp_max;
+        template.getElementById("MINDIARIO").textContent = data[i].main.temp_min;
+        try{
+            template.getElementById('IMAGENDIARIO').setAttribute("src", "img/" + data[i].weather[0].icon + ".png");
+        }catch{
+
+        }
+        
+        const clone = template.cloneNode(true);
+        fragment.appendChild(clone);
+
+    }
+
+    row.appendChild(fragment);
+}
 function LimiarDatos() {
 
     document.getElementById("TEMP").textContent = "";
@@ -102,32 +126,7 @@ function LimiarDatos() {
     document.getElementById("PRESION").textContent = "";
     document.getElementById('BARRAHUMEDAD').setAttribute("width", 0);
 }
-
-
-const ClimaDiasPosteriores = data => {
-
-    const row = document.getElementById("rowContenedor");
-    const template = document.getElementById("tempalteCard").content;
-    const fragment = document.createDocumentFragment();
-
-
-    //console.log(data[0].weather[0].icon)
-    for (var i = 0; i < data.length; i = i + 1) {
-        // console.log(data[i].main.temp)
-        template.getElementById("DIADIARIO").textContent =data[i].dt_txt;
-        template.getElementById("MAXDIARIO").textContent = data[i].main.temp_max;
-        template.getElementById("MINDIARIO").textContent = data[i].main.temp_min;
-        template.getElementById('IMAGENDIARIO').setAttribute("src", "img/" + data[i].weather[0].icon + ".png");
-
-        const clone = template.cloneNode(true);
-        fragment.appendChild(clone);
-
-    }
-
-    row.appendChild(fragment);
-}
-
-function ParseTimeStamp(timestamp) {
+function getDateTimeStamp(timestamp) {
     let unix_timestamp = timestamp
 
     var date = new Date(unix_timestamp * 1000);
@@ -138,7 +137,24 @@ function ParseTimeStamp(timestamp) {
     var days = date.getDate();
     var month = date.getMonth();
     var year = date.getFullYear();
-    var formattedTime = days + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    //var formattedTime = days + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    var formattedTime = days + '/' + month + '/' + year 
+    console.log(formattedTime)
+    return formattedTime
+}
+function getHoursTimeStamp(timestamp) {
+    let unix_timestamp = timestamp
 
+    var date = new Date(unix_timestamp * 1000);
+
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    var days = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    //var formattedTime = days + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    var formattedTime = hours + ':' + minutes.substr(-2) 
+    console.log(formattedTime)
     return formattedTime
 }
